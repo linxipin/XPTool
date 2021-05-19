@@ -1,0 +1,6 @@
+framework module XPTool {
+  umbrella header "XPTool-umbrella.h"
+
+  export *
+  module * { export * }
+}

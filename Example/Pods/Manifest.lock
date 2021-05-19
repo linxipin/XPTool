@@ -1,0 +1,16 @@
+PODS:
+  - XPTool (0.1.0)
+
+DEPENDENCIES:
+  - XPTool (from `../`)
+
+EXTERNAL SOURCES:
+  XPTool:
+    :path: "../"
+
+SPEC CHECKSUMS:
+  XPTool: d5c8056db94aeaa883f02a204b240ec99e2d08f9
+
+PODFILE CHECKSUM: 82d5f81bc5f5f66500db12b6d339d6d4a07c7b84
+
+COCOAPODS: 1.10.1
