@@ -1,14 +1,14 @@
 //
-//  LXPDataSource.m
+//  XPDataSource.m
 //  LMShopCart
 //
 //  Created by linxipin on 2018/3/29.
 //  Copyright © 2018年 linxipin. All rights reserved.
 //
 
-#import "LXPDataSource.h"
+#import "XPDataSource.h"
 
-@interface LXPDataSource ()
+@interface XPDataSource ()
 
 //sb
 @property (nonatomic, strong) IBInspectable NSString *cellIdentifier;
@@ -17,7 +17,7 @@
 
 @end
 
-@implementation LXPDataSource
+@implementation XPDataSource
 
 - (id)initWithIdentifier:(NSString *)identifier configureBlock:(CellConfigureBefore)before  selectBlock:(SelectCell)selectBlock {
     if(self = [super init]) {

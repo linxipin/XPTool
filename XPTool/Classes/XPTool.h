@@ -14,6 +14,12 @@ FOUNDATION_EXPORT double LXPToolVersionNumber;
 //! Project version string for LXPTool.
 FOUNDATION_EXPORT const unsigned char LXPToolVersionString[];
 
-#import "LXPCollectionViewAlignLayout.h"
-#import "LXPDataSource.h"
+#import "UICollectionView+CollectionViewEmptyData.h"
+#import "UITableView+TableViewEmptyData.h"
+#import "XPCollectionViewAlignLayout.h"
+#import "XPDataSource.h"
+#import "XPObjectTool.h"
+#import "XPUITool.h"
+#import "XPAuthID.h"
+
 

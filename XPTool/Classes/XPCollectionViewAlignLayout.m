@@ -1,20 +1,20 @@
 //
-//  LXPCollectionViewAlignLayout.m
-//  LXPCollectionViewAlignLayout
+//  XPCollectionViewAlignLayout.m
+//  XPCollectionViewAlignLayout
 //
 //  Created by lxp on 2017/12/28.
 //  Copyright © 2017年 lxp. All rights reserved.
 //
 
-#import "LXPCollectionViewAlignLayout.h"
+#import "XPCollectionViewAlignLayout.h"
 
-@interface LXPCollectionViewAlignLayout ()
+@interface XPCollectionViewAlignLayout ()
 
 @property (nonatomic, strong) NSMutableDictionary *cachedOrigin;
 
 @end
 
-@implementation LXPCollectionViewAlignLayout (attributes)
+@implementation XPCollectionViewAlignLayout (attributes)
 
 - (CGFloat)jq_minimumInteritemSpacingForSectionAtIndex:(NSInteger)section {
     if (self.collectionView.delegate && [self.collectionView.delegate respondsToSelector:@selector(collectionView:layout:minimumInteritemSpacingForSectionAtIndex:)]) {
@@ -34,27 +34,27 @@
     }
 }
 
-- (JQCollectionViewItemsHorizontalAlignment)jq_itemsHorizontalAlignmentForSectionAtIndex:(NSInteger)section {
+- (XPCollectionViewItemsHorizontalAlignment)jq_itemsHorizontalAlignmentForSectionAtIndex:(NSInteger)section {
     if (self.collectionView.delegate && [self.collectionView.delegate respondsToSelector:@selector(collectionView:layout:itemsHorizontalAlignmentInSection:)]) {
-        id<JQCollectionViewAlignLayoutDelegate> delegate = (id<JQCollectionViewAlignLayoutDelegate>) self.collectionView.delegate;
+        id<XPCollectionViewAlignLayoutDelegate> delegate = (id<XPCollectionViewAlignLayoutDelegate>) self.collectionView.delegate;
         return [delegate collectionView:self.collectionView layout:self itemsHorizontalAlignmentInSection:section];
     } else {
         return self.itemsHorizontalAlignment;
     }
 }
 
-- (JQCollectionViewItemsVerticalAlignment)jq_itemsVerticalAlignmentForSectionAtIndex:(NSInteger)section {
+- (XPCollectionViewItemsVerticalAlignment)jq_itemsVerticalAlignmentForSectionAtIndex:(NSInteger)section {
     if (self.collectionView.delegate && [self.collectionView.delegate respondsToSelector:@selector(collectionView:layout:itemsVerticalAlignmentInSection:)]) {
-        id<JQCollectionViewAlignLayoutDelegate> delegate = (id<JQCollectionViewAlignLayoutDelegate>) self.collectionView.delegate;
+        id<XPCollectionViewAlignLayoutDelegate> delegate = (id<XPCollectionViewAlignLayoutDelegate>) self.collectionView.delegate;
         return [delegate collectionView:self.collectionView layout:self itemsVerticalAlignmentInSection:section];
     } else {
         return self.itemsVerticalAlignment;
     }
 }
 
-- (JQCollectionViewItemsDirection)jq_itemsDirectionForSectionAtIndex:(NSInteger)section {
+- (XPCollectionViewItemsDirection)jq_itemsDirectionForSectionAtIndex:(NSInteger)section {
     if (self.collectionView.delegate && [self.collectionView.delegate respondsToSelector:@selector(collectionView:layout:itemsDirectionInSection:)]) {
-        id<JQCollectionViewAlignLayoutDelegate> delegate = (id<JQCollectionViewAlignLayoutDelegate>) self.collectionView.delegate;
+        id<XPCollectionViewAlignLayoutDelegate> delegate = (id<XPCollectionViewAlignLayoutDelegate>) self.collectionView.delegate;
         return [delegate collectionView:self.collectionView layout:self itemsDirectionInSection:section];
     } else {
         return self.itemsDirection;
@@ -63,7 +63,7 @@
 
 @end
 
-@implementation LXPCollectionViewAlignLayout (line)
+@implementation XPCollectionViewAlignLayout (line)
 
 - (BOOL)jq_isLineStartAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.item == 0) {
@@ -108,7 +108,7 @@
 
 @end
 
-@implementation LXPCollectionViewAlignLayout (alignment)
+@implementation XPCollectionViewAlignLayout (alignment)
 
 - (void)jq_cacheTheItemOrigin:(CGPoint)origin forIndexPath:(NSIndexPath *)indexPath {
     self.cachedOrigin[indexPath] = @(origin);
@@ -122,10 +122,10 @@
     NSInteger section = [array firstObject].indexPath.section;
 
     //******************** layout infos ********************//
-    JQCollectionViewItemsHorizontalAlignment horizontalAlignment = [self jq_itemsHorizontalAlignmentForSectionAtIndex:section];
-    JQCollectionViewItemsVerticalAlignment verticalAlignment = [self jq_itemsVerticalAlignmentForSectionAtIndex:section];
-    JQCollectionViewItemsDirection direction = [self jq_itemsDirectionForSectionAtIndex:section];
-    BOOL isR2L = direction == JQCollectionViewItemsDirectionRTL;
+    XPCollectionViewItemsHorizontalAlignment horizontalAlignment = [self jq_itemsHorizontalAlignmentForSectionAtIndex:section];
+    XPCollectionViewItemsVerticalAlignment verticalAlignment = [self jq_itemsVerticalAlignmentForSectionAtIndex:section];
+    XPCollectionViewItemsDirection direction = [self jq_itemsDirectionForSectionAtIndex:section];
+    BOOL isR2L = direction == XPCollectionViewItemsDirectionRTL;
     UIEdgeInsets sectionInsets = [self jq_insetForSectionAtIndex:section];
     CGFloat minimumInteritemSpacing = [self jq_minimumInteritemSpacingForSectionAtIndex:section];
     UIEdgeInsets contentInsets = self.collectionView.contentInset;
@@ -134,12 +134,12 @@
     //******************** temp origin.y ********************//
     CGFloat tempOriginY = 0.f;
     NSArray *frameValues = [array valueForKeyPath:@"frame"];
-    if (verticalAlignment == JQCollectionViewItemsVerticalAlignmentTop) {
+    if (verticalAlignment == XPCollectionViewItemsVerticalAlignmentTop) {
         tempOriginY = CGFLOAT_MAX;
         for (NSValue *frameValue in frameValues) {
             tempOriginY = MIN(tempOriginY, CGRectGetMinY(frameValue.CGRectValue));
         }
-    } else if (verticalAlignment == JQCollectionViewItemsVerticalAlignmentBottom) {
+    } else if (verticalAlignment == XPCollectionViewItemsVerticalAlignmentBottom) {
         tempOriginY = CGFLOAT_MIN;
         for (NSValue *frameValue in frameValues) {
             tempOriginY = MAX(tempOriginY, CGRectGetMaxY(frameValue.CGRectValue));
@@ -155,23 +155,23 @@
     CGFloat start = 0.f, space = 0.f;
     NSInteger totalCount = array.count;
     switch (horizontalAlignment) {
-        case JQCollectionViewItemsHorizontalAlignmentLeft: {
+        case XPCollectionViewItemsHorizontalAlignmentLeft: {
             start = isR2L ? (collectionViewWidth - totalWidth - contentInsets.left - contentInsets.right - sectionInsets.left - minimumInteritemSpacing * (totalCount - 1)) : sectionInsets.left;
             space = minimumInteritemSpacing;
         } break;
 
-        case JQCollectionViewItemsHorizontalAlignmentCenter: {
+        case XPCollectionViewItemsHorizontalAlignmentCenter: {
             CGFloat rest = (collectionViewWidth - totalWidth - contentInsets.left - contentInsets.right - sectionInsets.left - sectionInsets.right - minimumInteritemSpacing * (totalCount - 1)) / 2.f;
             start = isR2L ? sectionInsets.right + rest : sectionInsets.left + rest;
             space = minimumInteritemSpacing;
         } break;
 
-        case JQCollectionViewItemsHorizontalAlignmentRight: {
+        case XPCollectionViewItemsHorizontalAlignmentRight: {
             start = isR2L ? sectionInsets.right : (collectionViewWidth - totalWidth - contentInsets.left - contentInsets.right - sectionInsets.right - minimumInteritemSpacing * (totalCount - 1));
             space = minimumInteritemSpacing;
         } break;
 
-        case JQCollectionViewItemsHorizontalAlignmentFlow: {
+        case XPCollectionViewItemsHorizontalAlignmentFlow: {
             BOOL isEnd = array.lastObject.indexPath.item == [self.collectionView numberOfItemsInSection:section] - 1;
             start = isR2L ? sectionInsets.right : sectionInsets.left;
             space = isEnd ? minimumInteritemSpacing : (collectionViewWidth - totalWidth - contentInsets.left - contentInsets.right - sectionInsets.left - sectionInsets.right) / (totalCount - 1);
@@ -195,9 +195,9 @@
             lastMaxX = originX + width;
         }
         CGFloat originY;
-        if (verticalAlignment == JQCollectionViewItemsVerticalAlignmentBottom) {
+        if (verticalAlignment == XPCollectionViewItemsVerticalAlignmentBottom) {
             originY = tempOriginY - CGRectGetHeight(attr.frame);
-        } else if (verticalAlignment == JQCollectionViewItemsVerticalAlignmentCenter) {
+        } else if (verticalAlignment == XPCollectionViewItemsVerticalAlignmentCenter) {
             originY = attr.frame.origin.y;
         } else {
             originY = tempOriginY;
@@ -208,7 +208,7 @@
 
 @end
 
-@implementation LXPCollectionViewAlignLayout
+@implementation XPCollectionViewAlignLayout
 
 - (void)prepareLayout {
     [super prepareLayout];
@@ -228,7 +228,7 @@
 }
 
 - (UICollectionViewLayoutAttributes *)layoutAttributesForItemAtIndexPath:(NSIndexPath *)indexPath {
-    // This is likely occurring because the flow layout subclass JQCollectionViewAlignLayout is modifying attributes returned by UICollectionViewFlowLayout without copying them
+    // This is likely occurring because the flow layout subclass XPCollectionViewAlignLayout is modifying attributes returned by UICollectionViewFlowLayout without copying them
     UICollectionViewLayoutAttributes *currentAttributes = [[super layoutAttributesForItemAtIndexPath:indexPath] copy];
 
     // 获取缓存的当前 indexPath 的 item origin value

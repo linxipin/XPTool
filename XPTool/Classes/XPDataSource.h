@@ -1,6 +1,6 @@
 //
-//  LXPDataSource.h
-//  LMShopCart
+//  XPDataSource.h
+//  MShopCart
 //
 //  Created by linxipin on 2018/3/29.
 //  Copyright © 2018年 linxipin. All rights reserved.
@@ -19,7 +19,7 @@ typedef void (^SelectCell) (NSIndexPath *indexPath);
 ///
 typedef void (^ReloadData) (NSMutableArray *array);
 
-@interface LXPDataSource : NSObject<UITableViewDataSource,UICollectionViewDataSource,UITableViewDelegate,UICollectionViewDelegate>
+@interface XPDataSource : NSObject<UITableViewDataSource,UICollectionViewDataSource,UITableViewDelegate,UICollectionViewDelegate>
 
 @property (nonatomic, strong)  NSMutableArray *dataArray;
 
